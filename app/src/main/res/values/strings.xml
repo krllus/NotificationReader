@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Notification Status Bar Reader</string>
+    <string name="notification_icon_content_description">Notification Icon</string>
+    <string name="action_refresh">Load Data</string>
+</resources>
