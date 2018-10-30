@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.provider.Settings
 import android.support.v7.app.AppCompatActivity
 import com.example.joao.notificationreader.R
+import com.example.joao.notificationreader.features.notification.NotificationFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null)
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.fragment_container, MainFragment.newInstance(), MainFragment::class.java.simpleName)
+                .replace(R.id.fragment_container, NotificationFragment.newInstance(), NotificationFragment::class.java.simpleName)
                 .commit()
     }
 

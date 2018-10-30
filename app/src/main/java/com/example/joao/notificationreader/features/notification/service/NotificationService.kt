@@ -1,18 +1,16 @@
-package com.example.joao.notificationreader.service
+package com.example.joao.notificationreader.features.notification.service
 
 import android.content.Context
-import android.content.Intent
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
-import com.example.joao.notificationreader.model.NotificationData
-import com.example.joao.notificationreader.model.NotificationDatabase
+import com.example.joao.notificationreader.features.notification.model.NotificationData
+import com.example.joao.notificationreader.features.notification.model.NotificationDatabase
+import java.util.concurrent.Executors
 
 
 class NotificationService : NotificationListenerService() {
     val tag: String = NotificationService::class.java.simpleName
-
-    private var database : NotificationDatabase? = null
 
     lateinit var context: Context
 
@@ -26,27 +24,26 @@ class NotificationService : NotificationListenerService() {
         val ticker = sbn?.notification?.tickerText.toString()
 
         val extras = sbn?.notification?.extras
-        val title = extras?.getString("android.title")
-        val text = extras?.getCharSequence("android.text")!!.toString()
 
-        val msgrcv = Intent("Msg")
-        msgrcv.putExtra("package", pack)
-        msgrcv.putExtra("ticker", ticker)
-        msgrcv.putExtra("title", title)
-        msgrcv.putExtra("text", text)
 
         //save notification to Database
         val notification = NotificationData()
-        notification.pack = pack!!
+        notification.pack = pack ?: "default package"
         notification.ticker = ticker
-        notification.title = title!!
-        notification.message = text
+        notification.title = "default title"
+        notification.message = ""
 
         insertNotificationIntoDatabase(notification)
     }
 
     private fun insertNotificationIntoDatabase(notificationData: NotificationData) {
-        database?.notificationDao()?.insert(notificationData)
+
+        val executor = Executors.newSingleThreadExecutor()
+
+        executor.execute {
+            val database = NotificationDatabase.getInstance(context)
+            database?.notificationDao()?.insert(notificationData)
+        }
     }
 
     override fun onNotificationRemoved(sbn: StatusBarNotification?) {

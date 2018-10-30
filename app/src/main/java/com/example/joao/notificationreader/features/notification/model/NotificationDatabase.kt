@@ -1,4 +1,4 @@
-package com.example.joao.notificationreader.model
+package com.example.joao.notificationreader.features.notification.model
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
@@ -11,7 +11,7 @@ import android.content.Context
  * desenvolvedorberrante@bioxbr.com
  */
 
-@Database(entities = [NotificationData::class], version = 1)
+@Database(entities = [NotificationData::class], version = 2)
 abstract class NotificationDatabase : RoomDatabase() {
 
     abstract fun notificationDao(): NotificationDao
