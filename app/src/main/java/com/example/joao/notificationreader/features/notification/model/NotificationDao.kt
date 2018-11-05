@@ -18,7 +18,7 @@ interface NotificationDao {
     )
     fun getNotificationData(id: String): NotificationData
 
-    @Query("SELECT * FROM notification ORDER BY timeStamp desc")
+    @Query("SELECT * FROM notification ORDER BY timeStamp desc LIMIT 50")
     fun getNotifications(): List<NotificationData>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
