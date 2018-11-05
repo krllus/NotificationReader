@@ -23,20 +23,26 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     init {
         delegateAdapters.put(AdapterConstants.NOTIFICATION, NotificationDelegateAdapter())
-        delegateAdapters.put(AdapterConstants.LOADING, LoadingDelegateAdapter())
+        //delegateAdapters.put(AdapterConstants.LOADING, LoadingDelegateAdapter())
         elemens = ArrayList()
-        elemens.add(loadingItem)
+        //elemens.add(loadingItem)
     }
 
     override fun getItemCount(): Int {
         return elemens.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): RecyclerView.ViewHolder {
         return delegateAdapters.get(viewType)!!.onCreateViewHolder(parent)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int
+    ) {
         delegateAdapters.get(getItemViewType(position))!!.onBindViewHolder(holder, elemens[position])
     }
 
@@ -45,6 +51,7 @@ class NotificationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     fun updateElements(newElements: List<ViewType>) {
+        elemens.clear()
         elemens.addAll(newElements)
         notifyDataSetChanged()
     }

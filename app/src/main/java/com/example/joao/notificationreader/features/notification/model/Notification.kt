@@ -16,13 +16,14 @@ import com.example.joao.notificationreader.commons.adapter.ViewType
 data class NotificationData(
     @PrimaryKey(autoGenerate = true) var notification_id: Long? = 0,
     @ColumnInfo(name = "package") var pack: String = "",
-    @ColumnInfo(name = "timestamp") var ticker: String = "",
+    var timeStamp: Long,
     var title: String = "",
-    var message: String = ""
+    var message: String = "",
+    var info: String = ""
 ) : ViewType {
     override fun getViewType(): Int {
         return AdapterConstants.NOTIFICATION
     }
 
-    constructor() : this(null, "", "", "", "")
+    constructor() : this(null, "", java.util.Date().time, "", "", "")
 }

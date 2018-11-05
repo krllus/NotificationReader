@@ -13,10 +13,12 @@ import android.arch.persistence.room.Query
 
 @Dao
 interface NotificationDao {
-    @Query("SELECT * FROM notification WHERE notification_id = :id")
+    @Query(
+        "SELECT * FROM notification WHERE notification_id = :id"
+    )
     fun getNotificationData(id: String): NotificationData
 
-    @Query("SELECT * FROM notification")
+    @Query("SELECT * FROM notification ORDER BY timeStamp desc")
     fun getNotifications(): List<NotificationData>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

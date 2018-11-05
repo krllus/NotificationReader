@@ -11,7 +11,7 @@ import android.content.Context
  * desenvolvedorberrante@bioxbr.com
  */
 
-@Database(entities = [NotificationData::class], version = 2)
+@Database(entities = [NotificationData::class], version = 3)
 abstract class NotificationDatabase : RoomDatabase() {
 
     abstract fun notificationDao(): NotificationDao

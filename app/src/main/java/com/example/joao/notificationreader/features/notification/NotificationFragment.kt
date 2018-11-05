@@ -8,11 +8,10 @@ import android.widget.Toast
 import com.example.joao.notificationreader.R
 import com.example.joao.notificationreader.commons.extensions.inflate
 import com.example.joao.notificationreader.features.notification.adapter.NotificationAdapter
-import com.example.joao.notificationreader.features.notification.model.NotificationManager
+import com.example.joao.notificationreader.features.notification.model.ContentManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_notification.*
-
 
 /**
  * Created by João Carlos on 10/29/18.
@@ -21,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_notification.*
  */
 class NotificationFragment : Fragment() {
 
-    private val notificationManager by lazy { NotificationManager() }
+    private val notificationManager by lazy { ContentManager() }
 
     companion object {
         fun newInstance(): NotificationFragment {
@@ -34,7 +33,11 @@ class NotificationFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return container?.inflate(R.layout.fragment_notification)
     }
 
@@ -50,8 +53,11 @@ class NotificationFragment : Fragment() {
             loadData()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_main, menu)
+    override fun onCreateOptionsMenu(
+        menu: Menu,
+        inflater: MenuInflater
+    ) {
+        inflater.inflate(R.menu.menu_main_fragment, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -77,16 +83,8 @@ class NotificationFragment : Fragment() {
             .subscribe({ retrievedElements ->
                 (recycler_view.adapter as NotificationAdapter).updateElements(retrievedElements)
             }, { error ->
-                Toast.makeText(context, "error ${error.message}", Toast.LENGTH_SHORT).show()
-            })
-
-        val subscriptionFake = notificationManager.getFakeNotifications()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ retrievedElements ->
-                (recycler_view.adapter as NotificationAdapter).updateElements(retrievedElements)
-            }, { error ->
-                Toast.makeText(context, "error ${error.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "error ${error.message}", Toast.LENGTH_SHORT)
+                    .show()
             })
     }
 

@@ -10,6 +10,10 @@ import android.view.ViewGroup
  * desenvolvedorberrante@bioxbr.com
  */
 
-fun ViewGroup.inflate(layoutId: Int, attachToRoot : Boolean = false): View {
-    return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
+fun ViewGroup.inflate(
+    layoutId: Int,
+    attachToRoot: Boolean = false
+): View {
+    return LayoutInflater.from(context)
+        .inflate(layoutId, this, attachToRoot)
 }

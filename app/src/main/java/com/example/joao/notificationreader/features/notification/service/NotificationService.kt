@@ -8,9 +8,8 @@ import com.example.joao.notificationreader.features.notification.model.Notificat
 import com.example.joao.notificationreader.features.notification.model.NotificationDatabase
 import java.util.concurrent.Executors
 
-
 class NotificationService : NotificationListenerService() {
-    val tag: String = NotificationService::class.java.simpleName
+    private val tag: String = NotificationService::class.java.simpleName
 
     lateinit var context: Context
 
@@ -25,13 +24,15 @@ class NotificationService : NotificationListenerService() {
 
         val extras = sbn?.notification?.extras
 
+        val title = extras!!.getString("android.title")
+        val message = extras.getString("android.text")
 
         //save notification to Database
         val notification = NotificationData()
         notification.pack = pack ?: "default package"
-        notification.ticker = ticker
-        notification.title = "default title"
-        notification.message = ""
+        notification.title = title ?: "default title"
+        notification.message = message ?: ticker
+        notification.info = ticker
 
         insertNotificationIntoDatabase(notification)
     }
@@ -42,7 +43,8 @@ class NotificationService : NotificationListenerService() {
 
         executor.execute {
             val database = NotificationDatabase.getInstance(context)
-            database?.notificationDao()?.insert(notificationData)
+            database?.notificationDao()
+                ?.insert(notificationData)
         }
     }
 

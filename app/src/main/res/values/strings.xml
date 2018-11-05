@@ -2,4 +2,10 @@
     <string name="app_name">Notification Status Bar Reader</string>
     <string name="notification_icon_content_description">Notification Icon</string>
     <string name="action_refresh">Load Data</string>
+
+    <string name="dummy_notification_channel_id">dummy_channel</string>
+    <string name="dummy_notification_channel_name">Dummy Channel Name</string>
+    <string name="dummy_notification_channel_description">Dummy Channel Description</string>
+    <string name="create_dummy_notification">Create Dummy Notification</string>
+
 </resources>
